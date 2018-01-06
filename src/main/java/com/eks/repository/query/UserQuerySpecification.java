@@ -31,10 +31,10 @@ public class UserQuerySpecification implements Specification<User> {
         if (startDate != null && endDate != null) {
             Predicate predicate = criteriaBuilder.between(root.get("createDate"), startDate,endDate);
             list.add(predicate);
-        }else if(null != startDate){
+        }else if(startDate != null){
             Predicate predicate = criteriaBuilder.greaterThanOrEqualTo(root.get("createDate"),startDate);
             list.add(predicate);
-        }else if(null != endDate){
+        }else if(endDate != null){
             Predicate predicate = criteriaBuilder.lessThanOrEqualTo(root.get("createDate"),endDate);
             list.add(predicate);
         }

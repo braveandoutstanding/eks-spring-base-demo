@@ -2,7 +2,7 @@ package com.eks.utils;
 
 import com.alibaba.fastjson.JSON;
 /**
-* xuyj,深复制工具类,注意进行深复制的pojo类(T)的属性需有对应的get、set方法
+* xuyj,深复制工具类
  */
 @SuppressWarnings("unchecked")
 public class DeepCloneUtils<T> {
