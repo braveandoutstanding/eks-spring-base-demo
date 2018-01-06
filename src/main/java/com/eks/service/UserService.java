@@ -1,9 +1,8 @@
 package com.eks.service;
 
-import com.eks.entity.User;
-import com.eks.vo.base.UserVo;
+import com.eks.vo.UserVo;
 import com.eks.vo.query.UserQueryVo;
-import com.eks.vo.result.PageQueryResultVo;
+import com.eks.vo.base.PageQueryResultVo;
 import org.springframework.stereotype.Service;
 
 @Service

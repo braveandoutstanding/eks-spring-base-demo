@@ -1,4 +1,4 @@
-package com.eks.vo.result;
+package com.eks.vo.base;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;

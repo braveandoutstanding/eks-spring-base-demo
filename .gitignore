@@ -34,7 +34,3 @@ Thumbs.db
 rabel.xml
 Test*
 *.html
-application.yml
-
-#test class
-NormalTest.java

@@ -2,7 +2,7 @@ package com.eks.repository.query;
 
 import com.eks.entity.User;
 import com.eks.enums.UserSexualEnum;
-import com.eks.vo.base.UserVo;
+import com.eks.vo.UserVo;
 import com.eks.vo.query.UserQueryVo;
 import lombok.AllArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;

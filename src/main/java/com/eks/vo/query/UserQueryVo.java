@@ -1,6 +1,6 @@
 package com.eks.vo.query;
 
-import com.eks.vo.base.UserVo;
+import com.eks.vo.UserVo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;

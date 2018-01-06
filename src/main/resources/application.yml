@@ -1,0 +1,29 @@
+#基本配置
+server:
+  port: 8090 #项目使用的端口号
+
+spring:
+  #配置数据库
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/eks-spring-base-demo?useUnicode=true&characterEncoding=utf-8&useSSL=false #数据库的url
+    username: root #数据库的username
+    password: "root" #数据库的password
+    driverClassName: com.mysql.jdbc.Driver #数据库所使用的驱动
+    initialSize: 2
+    max-active: 4
+    minIdle: 1
+    max-idle: 2
+    maxWait: 30000
+    max-connections: 6
+    testOnBorrow: true
+    testWhileIdle: true
+    timeBetweenEvictionRunsMillis: 3600000
+    validationQuery: select 1
+    validationQueryTimeout: -1
+    removeAbandoned: true
+    removeAbandonedTimeout: 300
+  #配置Spring Data Jpa
+  jpa:
+    show-sql: true #显示自动生成或自己书写的SQL语句
+    hibernate:
+      ddl-auto: update #[reate：表示启动的时候先drop，再create][create-drop: 也表示创建，只不过再系统关闭前执行一下drop][update: 这个操作启动的时候会去检查schema是否一致，如果不一致会做scheme更新][validate: 启动时验证现有schema与你配置的hibernate是否一致，如果不一致就抛出异常，并不做更新]

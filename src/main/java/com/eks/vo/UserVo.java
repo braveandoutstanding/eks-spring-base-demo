@@ -1,4 +1,4 @@
-package com.eks.vo.base;
+package com.eks.vo;
 
 import com.eks.enums.UserSexualEnum;
 import com.fasterxml.jackson.annotation.JsonInclude;
