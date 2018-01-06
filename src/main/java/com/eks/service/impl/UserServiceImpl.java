@@ -51,8 +51,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User getUser(Integer id) {
-        return userRepository.findOneByIdAndRecordStatus(id,1);
+    public UserVo getUser(Integer id) {
+        User user = userRepository.findOneByIdAndRecordStatus(id, 1);
+        UserVo userVo = new UserVo();
+        BeanUtils.copyProperties(user,userVo);
+        return userVo;
     }
 
     @Override

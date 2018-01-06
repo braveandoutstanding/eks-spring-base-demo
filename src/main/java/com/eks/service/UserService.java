@@ -11,6 +11,6 @@ public interface UserService {
     String addUser(UserVo userVo);
     String deleteUser(Integer id);
     String updateUser(UserVo userVo);
-    User getUser(Integer id);
+    UserVo getUser(Integer id);
     PageQueryResultVo listUser(UserQueryVo userQueryVo);
 }
