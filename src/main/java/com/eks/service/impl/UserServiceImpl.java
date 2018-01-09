@@ -52,9 +52,6 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserVo getUser(Integer id) {
-        if(id == 6){
-            throw new IllegalArgumentException("bug test");
-        }
         User user = userRepository.findOneByIdAndRecordStatus(id, 1);
         UserVo userVo = new UserVo();
         BeanUtils.copyProperties(user,userVo);
