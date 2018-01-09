@@ -18,11 +18,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)//该注解是配合@ExceptionHandler一起使用的注解，自定义错误处理器，可自己组装json字符串，并返回到页面。
     public Result globalExceptionHandler(HttpServletRequest request,Exception exception) throws Exception {
-        try {
-            logger.error(ThrowableUtils.throwableString(exception));
-            return ThrowableUtils.throwableResult(exception);
-        }catch (Exception e){
-            return null;
-        }
+        logger.error(ThrowableUtils.throwableString(exception));
+        return ThrowableUtils.throwableResult(exception);
     }
 }
