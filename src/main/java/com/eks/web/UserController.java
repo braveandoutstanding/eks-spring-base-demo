@@ -4,8 +4,8 @@ import com.eks.service.UserService;
 import com.eks.utils.base.Result;
 import com.eks.utils.base.ResultUtils;
 import com.eks.vo.UserVo;
-import com.eks.vo.query.UserQueryVo;
 import com.eks.vo.base.PageQueryResultVo;
+import com.eks.vo.query.UserQueryVo;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +21,7 @@ public class UserController {
     UserService userService;
 
     @RequestMapping("/add-user")
-    public Result addUser(@RequestBody UserVo userVo){
+    public Result addUser(@RequestBody UserVo userVo) {
         return ResultUtils.handle(String.class,userService.addUser(userVo));
     }
     @RequestMapping("/delete-user")

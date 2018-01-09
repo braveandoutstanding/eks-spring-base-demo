@@ -56,7 +56,7 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.16.18</version>
-            <scope>provided</scope>
+            <scope>provided</scope><!--依赖范围。在项目发布过程中，帮助决定哪些构件被包括进来。欲知详情请参考依赖机制。[compile:默认范围,用于编译][provided：类似于编译，但支持你期待jdk或者容器提供，类似于classpath][runtime:在执行时需要使用][test:用于test任务时使用][system:需要外在提供相应的元素。通过systemPath来取得][systemPath:仅用于范围为system。提供相应的路径][optional:当项目自身被依赖时，标注依赖是否传递。用于连续依赖时使用-->
         </dependency>
         <!--devtools:不要手动重启，支持修改后自动重启-->
         <!--2.更改idea配置,方法一:“File” -> “Settings” -> “Build,Execution,Deplyment” -> “Compiler”，选中打勾 “Build project automatically”。方法二:组合键：“Shift+Ctrl+Alt+/” ，选择 “Registry” ，选中打勾 “compiler.automake.allow.when.app.running”-->

@@ -7,8 +7,8 @@ import com.eks.service.UserService;
 import com.eks.utils.BeanUtils2;
 import com.eks.utils.EntityToVoUtils;
 import com.eks.vo.UserVo;
-import com.eks.vo.query.UserQueryVo;
 import com.eks.vo.base.PageQueryResultVo;
+import com.eks.vo.query.UserQueryVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -52,6 +52,9 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserVo getUser(Integer id) {
+        if(id == 6){
+            throw new IllegalArgumentException("bug test");
+        }
         User user = userRepository.findOneByIdAndRecordStatus(id, 1);
         UserVo userVo = new UserVo();
         BeanUtils.copyProperties(user,userVo);
