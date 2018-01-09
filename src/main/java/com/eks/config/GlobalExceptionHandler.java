@@ -1,7 +1,7 @@
 package com.eks.config;
 
 import com.eks.utils.base.Result;
-import com.eks.utils.base.ThrowableUtils;
+import com.eks.utils.base.ExceptionUtils2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -18,7 +18,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)//该注解是配合@ExceptionHandler一起使用的注解，自定义错误处理器，可自己组装json字符串，并返回到页面。
     public Result globalExceptionHandler(HttpServletRequest request,Exception exception) throws Exception {
-        logger.error(ThrowableUtils.throwableString(exception));
-        return ThrowableUtils.throwableResult(exception);
+        logger.error(ExceptionUtils2.exceptionString(exception));
+        return ExceptionUtils2.exceptionResult(exception);
     }
 }
