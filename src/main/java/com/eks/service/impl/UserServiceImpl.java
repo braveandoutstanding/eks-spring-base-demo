@@ -22,11 +22,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Transactional
 public class UserServiceImpl implements UserService{
     @Resource
     UserRepository userRepository;
 
+    @Transactional
     @Override
     public String addUser(UserVo userVo) {
         User user = new User().setRecordStatus(1);
@@ -35,6 +35,7 @@ public class UserServiceImpl implements UserService{
         return "添加成功";
     }
 
+    @Transactional
     @Override
     public String deleteUser(Integer id) {
         User user = userRepository.findOneByIdAndRecordStatus(id, 1).setRecordStatus(0);
@@ -42,6 +43,7 @@ public class UserServiceImpl implements UserService{
         return "删除成功";
     }
 
+    @Transactional
     @Override
     public String updateUser(UserVo userVo) {
         User user = userRepository.findOneByIdAndRecordStatus(userVo.getId(), 1);

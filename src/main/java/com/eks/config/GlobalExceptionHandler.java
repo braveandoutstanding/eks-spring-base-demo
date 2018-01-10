@@ -1,7 +1,7 @@
 package com.eks.config;
 
-import com.eks.utils.base.Result;
 import com.eks.utils.base.ExceptionUtils2;
+import com.eks.utils.base.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;

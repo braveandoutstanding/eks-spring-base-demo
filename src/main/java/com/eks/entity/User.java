@@ -23,7 +23,7 @@ public class User {
     private String password;
     @Enumerated(EnumType.STRING)//默认通过数字,设置映射枚举字段为枚举的name
     private UserSexualEnum userSexualEnum;
-    //必备的三个字段,不采用继承父类的方式是为了避免某些框架不兼容
+    //必备的三个字段,不采用继承父类的方式是为了避免某些框架不兼容,需要给入口加@EnableJpaAuditing及使用new SpringApplicationBuilder(Main.class).web(true).run(args);
     @CreatedDate
     private Date createDate;//创建时间
     @LastModifiedDate
