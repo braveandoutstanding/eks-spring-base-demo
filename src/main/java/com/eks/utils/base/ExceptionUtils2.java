@@ -2,7 +2,6 @@ package com.eks.utils.base;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-
 public class ExceptionUtils2 {
     public static String exceptionString(Exception exception) {
         StringWriter stringWriter = new StringWriter();
@@ -10,6 +9,9 @@ public class ExceptionUtils2 {
         return stringWriter.toString();
     }
     public static Result exceptionResult(Exception exception) {
+        if(exception.getMessage() == null){
+            return new Result().setSuccess(false).setErrorMsg(exception.toString());
+        }
         return new Result().setSuccess(false).setErrorMsg(exception.getMessage());
     }
 }

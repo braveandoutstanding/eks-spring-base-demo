@@ -14,7 +14,7 @@ import java.util.Date;
 @Accessors(chain = true)
 @Entity
 @Table(name = "tbl_user")
-@EntityListeners(AuditingEntityListener.class)
+@EntityListeners(AuditingEntityListener.class)//将表中数据的创建时间、修改时间交给spring
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
