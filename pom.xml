@@ -78,6 +78,12 @@
             <artifactId>guava</artifactId>
             <version>23.5-jre</version>
         </dependency>
+        <!--JSCH是一个纯粹的用java实现SSH功能的java  library. 官方地址为：http://www.jcraft.com/jsch/-->
+        <dependency>
+            <groupId>com.jcraft</groupId>
+            <artifactId>jsch</artifactId>
+            <version>0.1.54</version>
+        </dependency>
     </dependencies>
 
     <build><!--注：project 中添加 spring-boot-maven-plugin,主要在eclipse中使用，idea中不需要添加此配置。-->

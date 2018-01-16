@@ -5,7 +5,7 @@ import com.eks.repository.UserRepository;
 import com.eks.repository.query.UserQuerySpecification;
 import com.eks.service.UserService;
 import com.eks.utils.BeanUtils2;
-import com.eks.utils.EntityToVoUtils;
+import com.eks.utils.SourceToTargetUtils;
 import com.eks.vo.UserVo;
 import com.eks.vo.base.PageQueryResultVo;
 import com.eks.vo.query.UserQueryVo;
@@ -29,20 +29,20 @@ public class UserServiceImpl implements UserService{
     @Transactional
     @Override
     public String addUser(UserVo userVo) {
-        User user = new User().setRecordStatus(1);
+        User user = new User();
+        user.setRecordStatus(1);
         BeanUtils.copyProperties(userVo,user);
         userRepository.saveAndFlush(user);
         return "添加成功";
     }
-
     @Transactional
     @Override
     public String deleteUser(Integer id) {
-        User user = userRepository.findOneByIdAndRecordStatus(id, 1).setRecordStatus(0);
+        User user = userRepository.findOneByIdAndRecordStatus(id, 1);
+        user.setRecordStatus(0);
         userRepository.saveAndFlush(user);
         return "删除成功";
     }
-
     @Transactional
     @Override
     public String updateUser(UserVo userVo) {
@@ -51,7 +51,6 @@ public class UserServiceImpl implements UserService{
         userRepository.saveAndFlush(user);
         return "修改成功";
     }
-
     @Override
     public UserVo getUser(Integer id) {
         User user = userRepository.findOneByIdAndRecordStatus(id, 1);
@@ -59,7 +58,6 @@ public class UserServiceImpl implements UserService{
         BeanUtils.copyProperties(user,userVo);
         return userVo;
     }
-
     @Override
     public PageQueryResultVo listUser(UserQueryVo userQueryVo) {
         UserQuerySpecification userQuerySpecification = new UserQuerySpecification(userQueryVo);
@@ -69,7 +67,7 @@ public class UserServiceImpl implements UserService{
         Page<User> page2 = userRepository.findAll(userQuerySpecification, pageable);
         List<User> userList = page2.getContent();
         List<UserVo> userVoList = new ArrayList<>();
-        userVoList = EntityToVoUtils.entityToVo(userList, userVoList);
+        userVoList = SourceToTargetUtils.sourceToTargetUtils(userList, userVoList);
         PageQueryResultVo<UserVo> pageQueryResultVo = new PageQueryResultVo<UserVo>();
         pageQueryResultVo.setPage(userQueryVo.getPage());
         pageQueryResultVo.setTotal(page2.getTotalElements());
