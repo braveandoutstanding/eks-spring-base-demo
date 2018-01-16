@@ -32,6 +32,10 @@ public class UserController {
     public Result updateUser(@RequestBody UserVo userVo){
         return ResultUtils.handle(String.class,userService.updateUser(userVo));
     }
+    @RequestMapping("/update-user-ignore-null")
+    public Result updateUserIgnoreNull(@RequestBody UserVo userVo){
+        return ResultUtils.handle(String.class,userService.updateUserIgnoreNull(userVo));
+    }
     @RequestMapping("/get-user")
     public Result getUser(@RequestParam("id") Integer id){
         return ResultUtils.handle(UserVo.class,userService.getUser(id));

@@ -47,6 +47,14 @@ public class UserServiceImpl implements UserService{
     @Override
     public String updateUser(UserVo userVo) {
         User user = userRepository.findOneByIdAndRecordStatus(userVo.getId(), 1);
+        BeanUtils.copyProperties(userVo,user);
+        userRepository.saveAndFlush(user);
+        return "修改成功";
+    }
+    @Transactional
+    @Override
+    public String updateUserIgnoreNull(UserVo userVo) {
+        User user = userRepository.findOneByIdAndRecordStatus(userVo.getId(), 1);
         BeanUtils2.copyPropertiesIgnoreNull(userVo,user);
         userRepository.saveAndFlush(user);
         return "修改成功";
