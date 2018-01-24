@@ -8,16 +8,19 @@ import com.eks.vo.base.PageQueryResultVo;
 import com.eks.vo.query.UserQueryVo;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/eks/user")
+@Validated//声明@Validated并加上校验注解
 public class UserController {
 
     @Resource
@@ -29,7 +32,7 @@ public class UserController {
         return ResultUtils.handle(String.class,"添加成功");
     }
     @RequestMapping("/delete-user")
-    public Result deleteUser(Integer id){//如果参数名就是id,则不需要加@RequestParam("id")
+    public Result deleteUser(@NotNull(message = "id不可为空") Integer id){////加RequestParam的作用是利用判断功能，为null则会制动抛出提示信息，如:org.springframework.web.bind.MissingServletRequestParameterException: Required ContainerType parameter 'containerType' is not present
         userService.deleteUser(id);
         return ResultUtils.handle(String.class,"删除成功");
     }
@@ -44,7 +47,7 @@ public class UserController {
         return ResultUtils.handle(String.class,"按需修改成功");
     }
     @RequestMapping("/get-user")
-    public Result getUser(Integer id){
+    public Result getUser(@NotNull(message = "id不可为空") Integer id){
         return ResultUtils.handle(UserVo.class,userService.getUser(id));
     }
     @RequestMapping("/list-user")
