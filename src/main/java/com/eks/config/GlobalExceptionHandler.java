@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-
+/**
+* @copyright create by XuYongJie on 2018/1/20 16:13
+* @description 全局异常处理器
+*/
 @ControllerAdvice//该注解是spring2.3以后新增的一个注解，主要是用来Controller的一些公共的需求的低侵入性增强提供辅助，作用于@RequestMapping标注的方法上。
 @ResponseBody//如果返回的为json数据或其它对象，添加该注解
 public class GlobalExceptionHandler {

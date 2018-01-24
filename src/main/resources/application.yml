@@ -2,6 +2,8 @@
 server:
   port: 8090 #项目使用的端口号
 
+cookie_name: authentication
+
 spring:
   #配置数据库
   datasource:

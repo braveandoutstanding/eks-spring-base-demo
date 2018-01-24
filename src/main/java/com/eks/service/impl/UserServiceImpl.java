@@ -1,5 +1,6 @@
 package com.eks.service.impl;
 
+import com.alibaba.fastjson.TypeReference;
 import com.eks.entity.User;
 import com.eks.repository.UserRepository;
 import com.eks.repository.query.UserQuerySpecification;
@@ -18,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,54 +28,48 @@ public class UserServiceImpl implements UserService{
 
     @Transactional
     @Override
-    public String addUser(UserVo userVo) {
+    public UserVo addUser(UserVo userVo){
         User user = new User();
-        user.setRecordStatus(1);
         BeanUtils.copyProperties(userVo,user);
-        userRepository.saveAndFlush(user);
-        return "添加成功";
+        user.setRecordStatus(1);
+        return SourceToTargetUtils.sourceToTarget(userRepository.saveAndFlush(user),new TypeReference<UserVo>(){});
     }
     @Transactional
     @Override
-    public String deleteUser(Integer id) {
+    public UserVo deleteUser(Integer id){
         User user = userRepository.findOneByIdAndRecordStatus(id, 1);
         user.setRecordStatus(0);
-        userRepository.saveAndFlush(user);
-        return "删除成功";
+        return SourceToTargetUtils.sourceToTarget(userRepository.saveAndFlush(user),new TypeReference<UserVo>(){});
     }
     @Transactional
     @Override
-    public String updateUser(UserVo userVo) {
+    public UserVo updateUser(UserVo userVo){
         User user = userRepository.findOneByIdAndRecordStatus(userVo.getId(), 1);
         BeanUtils.copyProperties(userVo,user);
-        userRepository.saveAndFlush(user);
-        return "修改成功";
+        return SourceToTargetUtils.sourceToTarget(userRepository.saveAndFlush(user),new TypeReference<UserVo>(){});
     }
     @Transactional
     @Override
-    public String updateUserIgnoreNull(UserVo userVo) {
+    public UserVo updateUserIgnoreNull(UserVo userVo){
         User user = userRepository.findOneByIdAndRecordStatus(userVo.getId(), 1);
         BeanUtils2.copyPropertiesIgnoreNull(userVo,user);
-        userRepository.saveAndFlush(user);
-        return "修改成功";
+        return SourceToTargetUtils.sourceToTarget(userRepository.saveAndFlush(user),new TypeReference<UserVo>(){});
     }
     @Override
-    public UserVo getUser(Integer id) {
+    public UserVo getUser(Integer id){
         User user = userRepository.findOneByIdAndRecordStatus(id, 1);
         UserVo userVo = new UserVo();
         BeanUtils.copyProperties(user,userVo);
         return userVo;
     }
     @Override
-    public PageQueryResultVo listUser(UserQueryVo userQueryVo) {
+    public PageQueryResultVo listUser(UserQueryVo userQueryVo){
         UserQuerySpecification userQuerySpecification = new UserQuerySpecification(userQueryVo);
         Integer page = userQueryVo.getPage() == null ? 1 : userQueryVo.getPage();
         Integer size = userQueryVo.getSize() == null ? 10 : userQueryVo.getSize();
         Pageable pageable = new PageRequest(page - 1, size, new Sort(Sort.Direction.DESC, "createDate"));//PageRequest构造三个参数分别表示：页数(0是第一页)、每页显示行数、排序字段
         Page<User> page2 = userRepository.findAll(userQuerySpecification, pageable);
-        List<User> userList = page2.getContent();
-        List<UserVo> userVoList = new ArrayList<>();
-        userVoList = SourceToTargetUtils.sourceToTargetUtils(userList, userVoList);
+        List<UserVo> userVoList = SourceToTargetUtils.sourceToTarget(page2.getContent(),new TypeReference<List<UserVo>>(){});
         PageQueryResultVo<UserVo> pageQueryResultVo = new PageQueryResultVo<UserVo>();
         pageQueryResultVo.setPage(userQueryVo.getPage());
         pageQueryResultVo.setTotal(page2.getTotalElements());

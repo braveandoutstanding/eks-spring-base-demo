@@ -3,6 +3,8 @@ package com.eks.utils;
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -10,13 +12,14 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
 public class JschUtils {
-    private final static int DEFAULT_PORT = 22;
-    private final static int DEFAULT_CONNECT_TIMEOUT = 30 * 1000;
+    private static final Logger logger = LoggerFactory.getLogger(JschUtils.class);
+    private final static Integer DEFAULT_PORT = 22;
+    private final static Integer DEFAULT_CONNECT_TIMEOUT = 30 * 1000;
     private final static String DEFAULT_CHARSETNAME = "UTF-8";
     public static String shell(String username,String host,String password,String script) throws Exception {
         return JschUtils.shell(username,host,DEFAULT_PORT,password,script,DEFAULT_CONNECT_TIMEOUT,DEFAULT_CHARSETNAME,DEFAULT_CHARSETNAME);
     }
-    public static String shell(String username,String host,int port,String password,String script,int connectTimeout,String writeCharsetName,String readerCharsetName) throws Exception {
+    public static String shell(String username,String host,Integer port,String password,String script,Integer connectTimeout,String writeCharsetName,String readerCharsetName) throws Exception {
         JSch jsch = new JSch();//创建JSch对象
         Session session = null;
         Channel channel = null;
@@ -39,6 +42,7 @@ public class JschUtils {
             channel = session.openChannel("shell");//打开shell通道
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(channel.getOutputStream(),writeCharsetName));//写入该流的所有数据都将发送到远程端
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(channel.getInputStream(), readerCharsetName));//从远程端到达的所有数据都能从这个流中读取到
+            BufferedReader errBufferedReader = new BufferedReader(new InputStreamReader(channel.getExtInputStream(), readerCharsetName));//错误流
             channel.connect(connectTimeout);//建立shell通道的连接
 
             bufferedWriter.write(script);//写入该流的所有数据都将发送到远程端
@@ -46,17 +50,24 @@ public class JschUtils {
             bufferedWriter.write("exit");//结束本次交互
             bufferedWriter.newLine();//经测试必须加writer.newLine()
             bufferedWriter.flush();//在调用flush或close以前,数据并没有被写入基础流,而是放在缓存区,调用后才被真正写入
+
             StringBuffer resultStringBuffer = new StringBuffer("");
             String resultString = "";
+            while ((resultString = errBufferedReader.readLine()) != null) {
+                logger.error(resultString);
+                resultStringBuffer.append(resultString).append("\n");
+            }
             while ((resultString = bufferedReader.readLine()) != null) {
+                logger.error(resultString);
                 resultStringBuffer.append(resultString).append("\n");
             }
             int status = channel.getExitStatus();
-            if (status != 0) {//错误状态
+            if (status != 0) {//0表示正常退出
                 throw new Exception("错误状态:" + status);
             }
             return resultStringBuffer.toString();
         } catch (Exception e) {
+            logger.error("调用远程服务器脚本出现错误:username=" + username + ",host=" + host + ",port=" + script + ",script=" + port, e);
             throw e;
         } finally {
             if (channel != null && channel.isConnected()) {
