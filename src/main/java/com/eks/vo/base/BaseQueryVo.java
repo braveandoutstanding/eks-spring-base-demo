@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 @Data//注解在类上;提供类所有非static且非final属性的get和set方法,final属性只提供get方法,此外还提供了equals、canEqual、hashCode、toString 方法
 @Accessors(chain = true)//chain=boolean值，默认false。如果设置为true，setter返回的是此对象，方便链式调用方法
@@ -15,6 +16,7 @@ import java.util.Date;
 public class BaseQueryVo {
     private Integer page;
     private Integer size;
+    @NotNull(message = "startDate不可为NULL")
     private Date startDate;
     private Date endDate;
 }

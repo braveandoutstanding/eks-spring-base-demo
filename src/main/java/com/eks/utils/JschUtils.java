@@ -10,14 +10,22 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.List;
 
 public class JschUtils {
     private static final Logger logger = LoggerFactory.getLogger(JschUtils.class);
-    private final static Integer DEFAULT_PORT = 22;
-    private final static Integer DEFAULT_CONNECT_TIMEOUT = 30 * 1000;
-    private final static String DEFAULT_CHARSETNAME = "UTF-8";
+    private final static Integer DEFAULT_PORT = 22;//默认端口
+    private final static Integer DEFAULT_CONNECT_TIMEOUT = 30 * 1000;//默认连接超时时间
+    private final static String DEFAULT_CHARSETNAME = "UTF-8";//默认字符编码
     public static String shell(String username,String host,String password,String script) throws Exception {
         return JschUtils.shell(username,host,DEFAULT_PORT,password,script,DEFAULT_CONNECT_TIMEOUT,DEFAULT_CHARSETNAME,DEFAULT_CHARSETNAME);
+    }
+    public static String shell(String username,String host,String password,List<String> scriptList) throws Exception {
+        StringBuffer stringBuffer = new StringBuffer();
+        for(int i = 0,size = scriptList.size(),last = size -1; i < size ;i++){
+            stringBuffer.append(i == last ? (scriptList.get(i)) : (scriptList.get(i) + " && "));//快速失败
+        }
+        return JschUtils.shell(username,host,password,stringBuffer.toString());
     }
     public static String shell(String username,String host,Integer port,String password,String script,Integer connectTimeout,String writeCharsetName,String readerCharsetName) throws Exception {
         JSch jsch = new JSch();//创建JSch对象
