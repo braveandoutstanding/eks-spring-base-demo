@@ -13,7 +13,7 @@ import java.util.Date;
 @JsonInclude(JsonInclude.Include.NON_NULL)//为NULL或者为空不参加序列化
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)//蛇形策略 - 单词小写，使用下划线'_'连接
 public class VoUtils {
-    private Integer id;
-    private Date createDate;//创建时间
-    private Date updateDate;//修改时间
+    public Integer id;
+    public Date createDate;//创建时间
+    public Date updateDate;//修改时间
 }

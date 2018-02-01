@@ -1,5 +1,6 @@
 package com.eks.entity.base;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedDate;
@@ -16,11 +17,11 @@ import java.util.Date;
 public class EntityUtils {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    //必备的三个字段,不采用继承父类的方式是为了避免某些框架不兼容,需要给入口加@EnableJpaAuditing及使用new SpringApplicationBuilder(Main.class).web(true).run(args);
+    public Integer id;//注意,
+    //必备的三个字段,需要给入口加@EnableJpaAuditing及使用new SpringApplicationBuilder(Main.class).web(true).run(args);
     @CreatedDate
-    private Date createDate;//创建时间
+    public Date createDate;//创建时间
     @LastModifiedDate
-    private Date updateDate;//修改时间
-    private Integer recordStatus;//状态
+    public Date updateDate;//修改时间
+    public Integer recordStatus;//状态
 }

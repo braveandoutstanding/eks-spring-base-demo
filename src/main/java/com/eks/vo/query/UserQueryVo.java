@@ -17,6 +17,5 @@ import javax.validation.constraints.NotNull;
 @JsonInclude(JsonInclude.Include.NON_NULL)//为NULL或者为空不参加序列化
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)//蛇形策略 - 单词小写，使用下划线'_'连接
 public class UserQueryVo extends BaseQueryVo{
-    @NotNull(message = "userVo不可为NULL")
     private UserVo userVo;
 }

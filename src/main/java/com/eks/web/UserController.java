@@ -44,7 +44,7 @@ public class UserController {
         return ResultUtils.handle(String.class,"按需修改成功");
     }
     @RequestMapping("/get-user")
-    public Result getUser(@NotNull(message = "id不可为空") Integer id,@NotNull(message = "name不可为空") String name){
+    public Result getUser(@NotNull(message = "id不可为空") Integer id){
         return ResultUtils.handle(UserVo.class,userService.getUser(id));
     }
     @RequestMapping("/list-user")

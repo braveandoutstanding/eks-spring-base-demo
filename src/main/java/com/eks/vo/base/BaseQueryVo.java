@@ -14,9 +14,8 @@ import java.util.Date;
 @JsonInclude(JsonInclude.Include.NON_NULL)//为NULL或者为空不参加序列化
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)//蛇形策略 - 单词小写，使用下划线'_'连接
 public class BaseQueryVo {
-    private Integer page;
-    private Integer size;
-    @NotNull(message = "startDate不可为NULL")
-    private Date startDate;
-    private Date endDate;
+    public Integer page;
+    public Integer size;
+    public Date startDate;
+    public Date endDate;
 }
