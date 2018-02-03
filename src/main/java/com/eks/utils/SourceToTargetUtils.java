@@ -8,7 +8,7 @@ import com.alibaba.fastjson.TypeReference;
 * @version 1.0.0
 */
 @SuppressWarnings("unchecked")
-public class SourceToTargetUtils<T,SOURCE,TARGET>{
+public class SourceToTargetUtils{
     public static <T> T deepClone(T t,TypeReference<T> typereference){//深复制
         return (T)JSON.parseObject(JSON.toJSONString(t),typereference);
     }
